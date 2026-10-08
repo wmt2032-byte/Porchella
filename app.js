@@ -155,7 +155,9 @@ function setupSearch() {
         matches.push({
           type: "address",
           label: address,
-          subtitle: hood,
+          details: artists.length
+            ? artists.map(act => `${act.Artist || "Artist"} • ${act.SetTime || "Set time TBD"} • ${address}`)
+            : [`No scheduled acts • ${address}`],
           address: address
         });
       }
@@ -166,7 +168,7 @@ function setupSearch() {
           matches.push({
             type: "artist",
             label: artistName,
-            subtitle: `${address} • ${act.SetTime || "Set time TBD"}`,
+            details: [`${address} • ${act.SetTime || "Set time TBD"}`],
             address: address
           });
         }
@@ -191,16 +193,25 @@ function setupSearch() {
       return;
     }
 
-    searchResults.innerHTML = resultList
-      .map(item => {
-        const strongText = item.type === "artist" ? item.label : item.label;
-        return `<button class="search-result" data-address="${item.address}" data-label="${item.label}"><strong>${strongText}</strong><br><small>${item.subtitle}</small></button>`;
-      })
-      .join("");
-
+    searchResults.replaceChildren();
     searchResults.classList.remove("hidden");
 
-    searchResults.querySelectorAll(".search-result").forEach(button => {
+    resultList.forEach(item => {
+      const button = document.createElement("button");
+      button.className = "search-result";
+      button.dataset.address = item.address;
+      button.dataset.label = item.label;
+
+      const label = document.createElement("strong");
+      label.textContent = item.label;
+      button.appendChild(label);
+
+      item.details.forEach(detail => {
+        const subtitle = document.createElement("small");
+        subtitle.textContent = detail;
+        button.appendChild(subtitle);
+      });
+
       button.addEventListener("click", () => {
         const selectedAddress = button.dataset.address;
         const selectedLabel = button.dataset.label || selectedAddress;
@@ -208,6 +219,8 @@ function setupSearch() {
         searchResults.classList.add("hidden");
         selectPorch(selectedAddress);
       });
+
+      searchResults.appendChild(button);
     });
   }
 

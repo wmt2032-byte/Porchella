@@ -1,5 +1,13 @@
 :root {
-  --header-h: 100px;
+  --app-height: 100vh;
+  --header-h: clamp(76px, 12vh, 100px);
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --app-height: 100dvh;
+    --header-h: clamp(76px, 12dvh, 100px);
+  }
 }
 
 * {
@@ -11,7 +19,7 @@
 ============================ */
 body {
   margin: 0;
-  height: 100vh;
+  height: var(--app-height);
   overflow: hidden;
   font-family: Arial, sans-serif;
   background: #b8b8b8;
@@ -22,7 +30,7 @@ body {
   inset: 0 0 auto;
   z-index: 1000;
   height: var(--header-h);
-  overflow: hidden;
+  overflow: visible;
   background: #000;
   color: #fff;
   padding: 0 16px;
@@ -48,8 +56,8 @@ body {
   position: absolute !important;
   top: 50%;
   left: 50%;
-  width: 64px;
-  height: 64px;
+  width: clamp(40px, 5vw, 64px);
+  height: clamp(40px, 5vw, 64px);
   transform: translate(-50%, -50%);
   z-index: 0 !important;
   pointer-events: none;
@@ -64,7 +72,7 @@ body {
 
 #header h1 {
   margin: 0;
-  font-size: 31.25px;
+  font-size: clamp(24px, 2.45vw, 31.25px);
   line-height: 0.9;
   letter-spacing: -0.04em;
   color: #fff;
@@ -94,7 +102,7 @@ body {
 .year-tag {
   display: block;
   margin-top: 8px;
-  font-size: 15px;
+  font-size: clamp(12px, 1.2vw, 15px);
   letter-spacing: 0.12em;
   font-weight: 700;
   color: #fff;
@@ -102,8 +110,8 @@ body {
 }
 
 .header-visual {
-  width: 120px;
-  height: 72px;
+  width: clamp(88px, 9.4vw, 120px);
+  height: clamp(52px, 9vh, 72px);
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -162,10 +170,14 @@ body {
 #header input {
   padding: 6px 10px;
   font-size: 14px;
-  width: 180px;
+  width: clamp(140px, 14vw, 180px);
   border-radius: 4px;
   border: 1px solid #ddd;
   display: block;
+}
+
+#header input::placeholder {
+  font-size: clamp(11px, 1vw, 13px);
 }
 
 #search-results {
@@ -173,7 +185,7 @@ body {
   top: calc(100% + 4px);
   right: 0;
   width: 260px;
-  max-height: 220px;
+  max-height: min(220px, 40vh);
   overflow-y: auto;
   background: #fff;
   border: 1px solid #ddd;
@@ -201,6 +213,13 @@ body {
 
 .search-result:last-child {
   border-bottom: none;
+}
+
+.search-result small {
+  display: block;
+  margin-top: 3px;
+  line-height: 1.35;
+  white-space: normal;
 }
 
 .search-result:hover {
@@ -249,9 +268,9 @@ body {
    LEFT SIDEBAR
 ============================ */
 #neighborhood-list {
-  width: 250px;
+  width: clamp(200px, 20vw, 280px);
   background: #d9d9d9;
-  padding: 16px;
+  padding: clamp(10px, 1.25vw, 16px);
   overflow-y: auto;
   overscroll-behavior: contain;
   border-right: 1px solid #ddd;
@@ -262,14 +281,14 @@ body {
 .list-title {
   margin: 0 0 12px;
   text-align: left;
-  font-size: 22px;
+  font-size: clamp(19px, 1.72vw, 22px);
   font-weight: 700;
 }
 
 #neighborhood-list h3 {
-  margin-top: 20px;
-  margin-bottom: 8px;
-  font-size: 18px;
+  margin-top: clamp(14px, 1.55vw, 20px);
+  margin-bottom: clamp(6px, 0.65vw, 8px);
+  font-size: clamp(16px, 1.4vw, 18px);
   font-weight: 700;
   text-align: left;
 }
@@ -277,14 +296,14 @@ body {
 .porch-btn {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: clamp(8px, 0.8vw, 10px);
   margin-bottom: 8px;
   background: #eee;
   border: none;
   border-radius: 4px;
   text-align: left;
   cursor: pointer;
-  font-size: 13px;
+  font-size: clamp(12px, 1vw, 13px);
 }
 
 .porch-btn:hover {
@@ -308,10 +327,10 @@ body {
    DESKTOP DETAILS PANEL
 ============================ */
 #desktop-details {
-  width: 300px;
+  width: clamp(260px, 24vw, 320px);
   background: #ffffff;
   border-left: 1px solid #ddd;
-  padding: 16px;
+  padding: clamp(10px, 1.25vw, 16px);
   overflow: hidden;
 }
 
@@ -369,7 +388,7 @@ body {
     top: var(--header-h);
     right: 0;
     width: 60%;
-    height: calc(100vh - var(--header-h));
+    height: calc(var(--app-height) - var(--header-h));
     background: #000;
     transform: translateX(100%);
     transition: transform 0.3s ease;
@@ -481,8 +500,13 @@ body {
     font-size: 13px;
   }
 
+  #header input::placeholder {
+    font-size: clamp(9px, 3vw, 11px);
+  }
+
   #search-results {
     width: min(260px, calc(100vw - 20px));
+    max-height: min(220px, 40dvh);
   }
 
   .header-wreath {
