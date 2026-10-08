@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Porchella Map</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header id="header">
+      <div class="snow-layer" aria-hidden="true">
+        <span style="--x: 8%; --size: 12; --d: 15s; --delay: 0s;">❄</span>
+        <span style="--x: 18%; --size: 10; --d: 18s; --delay: 2s;">❄</span>
+        <span style="--x: 28%; --size: 14; --d: 16s; --delay: 4s;">❄</span>
+        <span style="--x: 42%; --size: 11; --d: 17s; --delay: 1s;">❄</span>
+        <span style="--x: 56%; --size: 13; --d: 19s; --delay: 3s;">❄</span>
+        <span style="--x: 68%; --size: 9; --d: 15s; --delay: 5s;">❄</span>
+        <span style="--x: 80%; --size: 12; --d: 18s; --delay: 2.5s;">❄</span>
+        <span style="--x: 92%; --size: 10; --d: 16s; --delay: 1.5s;">❄</span>
+      </div>
+      <div class="header-group">
+        <div class="header-visual">
+          <img src="images.jpg" alt="Porchella porch photo" />
+        </div>
+        <div class="brand-stack">
+          <h1>Porchella</h1>
+          <span class="year-tag">2026</span>
+        </div>
+      </div>
+      <div id="search-wrap">
+        <input id="search" type="text" placeholder="Search porch or artist" aria-label="Search porch or artist" />
+        <div id="search-results" class="hidden" aria-live="polite"></div>
+      </div>
+    </header>
+
+    <div id="layout">
+      <aside id="neighborhood-list" aria-label="Neighborhood list"></aside>
+      <div id="map" aria-label="Map showing porch locations"></div>
+
+      <aside id="desktop-details">
+        <h2 id="desktop-title">Select a porch</h2>
+        <div id="desktop-artist-list"></div>
+      </aside>
+
+      <div id="empty-right-hint" class="empty-page-hint">
+        Select an Address<br>
+        or<br>
+        Make a Search
+      </div>
+    </div>
+
+    <div id="backdrop" aria-hidden="true"></div>
+
+    <aside id="side-panel" aria-label="Porch details panel">
+      <div id="panel-map"></div>
+      <div id="panel-content"></div>
+    </aside>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+    <script src="app.js"></script>
+  </body>
+</html>
