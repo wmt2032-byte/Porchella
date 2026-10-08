@@ -44,6 +44,24 @@ body {
   z-index: 1;
 }
 
+.header-wreath {
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  transform: translate(-50%, -50%);
+  z-index: 0 !important;
+  pointer-events: none;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.28));
+}
+
+.header-wreath svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 #header h1 {
   margin: 0;
   font-size: 31.25px;
@@ -418,5 +436,57 @@ body {
 
   #backdrop.show {
     display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  #header {
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .header-group {
+    gap: 8px;
+  }
+
+  .header-visual {
+    width: clamp(48px, 15vw, 64px);
+    height: 56px;
+  }
+
+  .brand-stack {
+    align-self: center;
+    margin-top: 0;
+  }
+
+  #header h1 {
+    font-size: clamp(20px, 6vw, 24px);
+    white-space: nowrap;
+  }
+
+  .year-tag {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  #search-wrap {
+    flex: 0 1 clamp(110px, 37vw, 150px);
+    margin-left: 0;
+    transform: none;
+  }
+
+  #header input {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+
+  #search-results {
+    width: min(260px, calc(100vw - 20px));
+  }
+
+  .header-wreath {
+    width: clamp(26px, 10vw, 56px);
+    height: clamp(26px, 10vw, 56px);
   }
 }
