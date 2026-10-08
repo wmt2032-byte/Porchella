@@ -1,0 +1,51 @@
+Attached Element Context from Integrated Browser
+
+Element: div#panel-content
+
+URL: file:///C:/Porchella/Webapp/index.html
+
+HTML Path: aside#side-panel.open > div#panel-content
+
+Outer HTML:
+```html
+<div id="panel-content"><h2>649 West Ocean View</h2>
+      <div class="artist-card">
+        <h3>Maya Rhodes</h3>
+        <p><strong>Set:</strong> 12:00 PM</p>
+        <p><a href="https://instagram.com/mayarhodesmusic" target="_blank">@mayarhodesmusic</a></p>
+        <hr>
+      </div>
+    
+      <div class="artist-card">
+        <h3>The Driftwood Duo</h3>
+        <p><strong>Set:</strong> 1:30 PM</p>
+        <p><a href="https://instagram.com/driftwoodduo" target="_blank">@driftwoodduo</a></p>
+        <hr>
+      </div>
+    </div>
+```
+
+Dimensions:
+- top: 326px
+- left: 198px
+- width: 296px
+- height: 299px
+
+CSS:
+```css
+#panel-content { height: 55%;
+    overflow-y: auto;
+    padding: 12px; }
+
+/* Inherited */
+body { font-family: Arial, sans-serif }
+
+/* Resolved values */
+padding: 12px;
+display: block;
+font-family: Arial, sans-serif;
+height: 275px;
+overflow-y: auto;
+unicode-bidi: isolate /*UA*/;
+width: 257.391px;
+```
