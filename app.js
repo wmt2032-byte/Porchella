@@ -112,6 +112,8 @@ function buildLeftPanel() {
       const btn = document.createElement("button");
       btn.className = "porch-btn";
       btn.textContent = addr;
+      btn.dataset.address = addr;
+      btn.setAttribute("aria-pressed", "false");
 
       btn.onclick = () => selectPorch(addr);
 
@@ -129,32 +131,6 @@ function buildLeftPanel() {
 function setupSearch() {
   const searchInput = document.getElementById("search");
   const searchResults = document.getElementById("search-results");
-
-  function getMatchInfo(address) {
-    const porch = porchData.features.find(f => f.properties.Address === address);
-    if (!porch) return null;
-
-    const props = porch.properties;
-    const hoodName = props.Neighborhood || "";
-    const acts = Array.isArray(props.Artists) ? props.Artists : [];
-    const artistNames = acts.map(a => a.Artist || "").join(" ");
-
-    return { hoodName, artistNames };
-  }
-
-  function filterPorchButtons(query) {
-    const q = query.trim().toLowerCase();
-    const buttons = document.querySelectorAll(".porch-btn");
-
-    buttons.forEach(btn => {
-      const addr = btn.textContent.trim();
-      const info = getMatchInfo(addr);
-      const hoodName = (info && info.hoodName) ? info.hoodName.toLowerCase() : "";
-      const artistNames = (info && info.artistNames) ? info.artistNames.toLowerCase() : "";
-      const show = !q || addr.toLowerCase().includes(q) || hoodName.includes(q) || artistNames.includes(q);
-      btn.style.display = show ? "block" : "none";
-    });
-  }
 
   function renderResults(query) {
     const q = query.trim().toLowerCase();
@@ -230,7 +206,6 @@ function setupSearch() {
         const selectedLabel = button.dataset.label || selectedAddress;
         searchInput.value = selectedLabel;
         searchResults.classList.add("hidden");
-        filterPorchButtons(selectedLabel);
         selectPorch(selectedAddress);
       });
     });
@@ -238,7 +213,6 @@ function setupSearch() {
 
   searchInput.addEventListener("input", e => {
     const q = e.target.value;
-    filterPorchButtons(q);
     renderResults(q);
   });
 
@@ -280,6 +254,12 @@ initPanelMap();
 function selectPorch(address) {
   const marker = markers[address];
   if (!marker) return;
+
+  document.querySelectorAll(".porch-btn").forEach(button => {
+    const isSelected = button.dataset.address === address;
+    button.classList.toggle("selected", isSelected);
+    button.setAttribute("aria-pressed", String(isSelected));
+  });
 
   const coords = marker.getLatLng();
   map.setView(coords, 17);
